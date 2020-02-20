@@ -1,15 +1,30 @@
-#include "pomiar_nap.h"
+/*
+ * pomiar_nap.h
+ *
+ *  Created on: Apr 9, 2015
+ *      Author: juju
+ */
 
-		uint16_t pomiar(uint8_t channel)		// function for measure voltage
-		{
-			ADMUX = (ADMUX & 0xF8) | channel;
-			ADCSRA |= (1<<ADSC);
-			while(ADCSRA & (1<<ADSC));
-			printf ("%ud  \n\r",TCNT1);
-			return ADCH;
-		}
-		void init_adc()
-		{
-			ADMUX	|=	(1<<REFS0);
-			ADCSRA	|=	(1<<ADEN)|(1<<ADPS1)|(1<<ADPS0);
-		}
+#ifndef POMIAR_NAP_H_
+#define POMIAR_NAP_H_
+
+#include <avr/io.h>
+
+volatile uint32_t WY_ADC;
+volatile uint32_t WY_ADC2;
+
+volatile uint16_t v1;
+volatile char V1 [4];
+volatile uint16_t v2;
+volatile char V2 [4];
+
+volatile uint16_t v11;
+volatile char V11 [4];
+volatile uint16_t v22;
+volatile char V22 [4];
+
+uint16_t pomiar(uint8_t kanal);
+void init_adc();
+
+
+#endif /* POMIAR_NAP_H_ */
